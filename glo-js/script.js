@@ -10,7 +10,7 @@ let service2 = prompt('Какой дополнительный тип услуг
 let servicePrice2 = prompt("Сколько это будет стоить?", '5500');
 let rollback = 10;
 let fullPrice = screenPrice + servicePrice1 + servicePrice2;
-let servicePercentPrice = fullPrice - (fullPrice * (rollback/100));
+
 
 const showTypeOf = function(variable) {
     console.log(variable, typeof variable);
@@ -36,17 +36,19 @@ function getFullPrice () {
    let fullPrice = screenPrice + getAllServicePrices()
    return fullPrice;
 }
+function getTitle() {
+    let processedTitle = title.trim().toLowerCase();
+    return processedTitle.charAt(0).toUpperCase() + processedTitle.slice(1);
+}
+function getServicePercentPrices() {
+    let servicePercentPrice = fullPrice - (fullPrice * (rollback/100));
+    return servicePercentPrice; 
+}
 
 showTypeOf(title);
 showTypeOf(screenPrice);
 showTypeOf(adaptive);
 
+console.log(screens); 
 console.log(getrollbackMessage(fullPrice));
-console.log(typeof title);
-console.log(typeof screenPrice);
-console.log(typeof adaptive);
-
-console.log(screens.length);
-console.log(servicePercentPrice);
-
-console.log("Итог: " + Math.ceil(servicePercentPrice));
+console.log(getServicePercentPrices());
