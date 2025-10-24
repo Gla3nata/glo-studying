@@ -13,8 +13,14 @@ let servicePercentPrice
 console.log();
 
 const isNumber = function (num) {
-    return !isNaN(parseFloat(num)) && isFinite(num)
+    if (num === null || num === undefined) {
+        return false;
+    }
+    num = num.trim();
+    if (num === '') return false;
+    return !isNaN(parseFloat(num)) && isFinite(num);
 }
+
 
 const asking = function () {
     title = prompt('Как называется ваш проект', 'Калькулятор');
