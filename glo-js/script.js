@@ -12,19 +12,25 @@ const appData = {
     services: {},
     start: function () {
         appData.asking();
-        appData.getAllServicePrices();
+        appData.addPrices();
         appData.getFullPrice();
         appData.getServicePercentPrices();
         appData.getTitle();
         appData.logger();
     },
-    asking: function () {
-        appData.title = prompt('Как называется ваш проект', 'Калькулятор');
-        // appData.screens = prompt('Какие типы экранов нужно разработать');
+    isText: function (str) {
+        if (str === null) return false; 
+        if (str.trim() === '') return false;
+        if (!/[а-яa-z]/i.test(str)) return false;
 
-        // do {
-        //     appData.screenPrice = prompt('Сколько будет стоить данная работа?');
-        // } while (!appData.isNumber(appData.screenPrice))
+        return true;
+    },
+    asking: function () {
+        do{
+            appData.title = prompt('Как называется ваш проект?');
+        } while (!appData.isText(appData.title))
+        
+
 
         for (let i = 0; i < 2; i++) {
             let name = prompt("Какие типы экранов нужно разработать?")
@@ -33,8 +39,9 @@ const appData = {
                 price = prompt('Сколько будет стоить данная работа?');
             } while (!appData.isNumber(price))
 
-            appData.screens.push({id: i, name: name, price: price})
+            appData.screens.push({ id: i, name: name, price: price })
         }
+
         for (let i = 0; i < 2; i++) {
             let name = prompt("Какой дополнительный тип услуги нужен?")
             let price = 0;
@@ -45,10 +52,12 @@ const appData = {
 
             appData.services[name] = +price
         }
-
         appData.adaptive = confirm('Нужен ли адаптив на сайте?');
     },
-    getAllServicePrices: function () {
+    addPrices: function () {
+        for (let screen of appData.screens) {
+            appData.screenPrice += +screen.price;
+        }
         for (let key in appData.services) {
             appData.allServicePrices += appData.services[key]
         }
@@ -78,10 +87,10 @@ const appData = {
             return 'Что то пошло не так'
         }
     },
-        logger: function () {
+    logger: function () {
         console.log(appData.fullPrice)
         console.log(appData.servicePercentPrice)
-        console.log(appData.screenPrice)
+        console.log(appData.screens)
     }
 }
 
