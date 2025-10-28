@@ -27,13 +27,13 @@ const appData = {
         // } while (!appData.isNumber(appData.screenPrice))
 
         for (let i = 0; i < 2; i++) {
-            let name = prompt("Какие типы экранов нужно разработать")
+            let name = prompt("Какие типы экранов нужно разработать?")
             let price = 0;
             do {
                 price = prompt('Сколько будет стоить данная работа?');
             } while (!appData.isNumber(price))
 
-            appData.screens.push({ id: i, name: name, price: price })
+            appData.screens.push({id: i, name: name, price: price})
         }
         for (let i = 0; i < 2; i++) {
             let name = prompt("Какой дополнительный тип услуги нужен?")
@@ -79,15 +79,11 @@ const appData = {
         }
     },
         logger: function () {
-        for (let key in this) {
-            if (typeof this[key] !== 'function') {
-                console.log(key + ': ' + this[key]);
-            }
-        }
-        console.log(this.screenPrice + 'screenPrice')
+        console.log(appData.fullPrice)
+        console.log(appData.servicePercentPrice)
+        console.log(appData.screenPrice)
     }
 }
-
 
 appData.start()
 
