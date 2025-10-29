@@ -19,21 +19,21 @@ const appData = {
         appData.logger();
     },
     isText: function (str) {
-        if (str === null) return false; 
-        if (str.trim() === '') return false;
+        if (str === null || str === undefined) return false;
+        str = String(str).trim();
+        if (str === '') return false;
         if (!/[а-яa-z]/i.test(str)) return false;
-
         return true;
     },
     asking: function () {
-        do{
+        do {
             appData.title = prompt('Как называется ваш проект?');
         } while (!appData.isText(appData.title))
-        
-
-
         for (let i = 0; i < 2; i++) {
-            let name = prompt("Какие типы экранов нужно разработать?")
+            let name;
+            do {
+                name = prompt("Какие типы экранов нужно разработать?");
+            } while (!appData.isText(name))
             let price = 0;
             do {
                 price = prompt('Сколько будет стоить данная работа?');
@@ -43,11 +43,14 @@ const appData = {
         }
 
         for (let i = 0; i < 2; i++) {
-            let name = prompt("Какой дополнительный тип услуги нужен?")
-            let price = 0;
-
+            let name;
             do {
-                price = prompt('Сколько будет стоить данная работа?(дополнительная)');
+                name = prompt("Какой дополнительный тип услуги нужен?");
+            } while (!appData.isText(name))
+
+            let price = 0;
+            do {
+                price = prompt('Сколько это будет стоить? (дополнительная работа)');
             } while (!appData.isNumber(price))
 
             appData.services[name] = +price
